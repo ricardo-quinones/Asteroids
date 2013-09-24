@@ -4,7 +4,8 @@
   Game = Asteroids.Game = function (ctx) {
     this.ctx = ctx;
     this.asteroids = [];
-    this.newfunction = function(){}
+    this.ship = new Asteroids.Ship();
+    this.interval
   };
 
   Game.DIM_X = 800;
@@ -21,7 +22,10 @@
 
   Game.prototype.draw = function () {
     var ctx = this.ctx;
-    ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
+    context.fillStyle = '#000000';
+    ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
+
+    this.ship.draw(ctx)
 
     this.asteroids.forEach(function (asteroid) {
       asteroid.draw(ctx);
@@ -32,22 +36,33 @@
     this.asteroids.forEach(function (asteroid) {
       asteroid.move(asteroid);
     })
+    this.ship.move(this.ship)
   };
 
   Game.prototype.step = function(game) {
     game.move();
     game.draw();
+    game.checkCollisions();
   }
+
+  Game.prototype.checkCollisions = function () {
+    var ship = this.ship;
+    var game = this;
+    this.asteroids.forEach(function (asteroid) {
+      if (ship.isCollidedWith(asteroid)) {
+        window.clearInterval(game.interval);
+        window.alert("All your base has been destroyed!");
+      }
+    })
+  };
 
   Game.prototype.start = function() {
     this.addAsteroids(10);
     var game = this
     var time = Math.floor(1000 / Game.FPS);
 
-    window.setInterval(function () {
-      game.step(game)
-    }, time);
-    // window.setInterval(console.log("interval"), 2000);
+    game.interval = window.setInterval(function () {
+      game.step(game)}, time);
   };
 
 })(this);

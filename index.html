@@ -4,6 +4,7 @@
     <script src="moving_object.js"></script>
     <script src="asteroid.js"></script>
     <script src="game.js"></script>
+    <script src="ship.js"></script>
   </head>
   <body>
     <script>
@@ -14,7 +15,9 @@
     var body = document.getElementsByTagName("body")[0];
     body.appendChild(canvas);
 
-    new Asteroids.Game(canvas.getContext("2d")).start();
+    var context = canvas.getContext("2d");
+
+    new Asteroids.Game(context).start();
     </script>
   </body>
 </html>

@@ -14,10 +14,9 @@ Function.prototype.inherits = function (superClass) {
     this.color = color;
   }
 
-  MovingObject.prototype.move = function (asteroid) {
-    asteroid.pos[0] += asteroid.vel[0];
-    asteroid.pos[1] += asteroid.vel[1];
-    console.log(asteroid.vel);
+  MovingObject.prototype.move = function (object) {
+    object.pos[0] += object.vel[0];
+    object.pos[1] += object.vel[1];
   }
 
   MovingObject.prototype.draw = function (ctx) {
@@ -39,7 +38,7 @@ Function.prototype.inherits = function (superClass) {
   MovingObject.prototype.isCollidedWith = function (otherObject) {
     var xdiff = this.pos[0] - otherObject.pos[0];
     var ydiff = this.pos[1] - otherObject.pos[1];
-    distance = sqrt( (xdiff * xdiff) + (ydiff * ydiff));
+    distance = Math.sqrt( (xdiff * xdiff) + (ydiff * ydiff));
 
     return ((this.radius + otherObject.radius) > distance);
   }
