@@ -14,9 +14,17 @@ Function.prototype.inherits = function (superClass) {
     this.color = color;
   }
 
-  MovingObject.prototype.move = function (object) {
-    object.pos[0] += object.vel[0];
-    object.pos[1] += object.vel[1];
+  MovingObject.prototype.move = function () {
+    this.pos[0] += this.vel[0];
+    this.pos[0] = this.pos[0] % Asteroids.Game.DIM_X;
+    if (this.pos[0] < 0) {
+      this.pos[0] += Asteroids.Game.DIM_X;
+    }
+    this.pos[1] += this.vel[1];
+    this.pos[1] = this.pos[1] % Asteroids.Game.DIM_Y;
+    if (this.pos[1] < 0) {
+      this.pos[1] += Asteroids.Game.DIM_Y;
+    }
   }
 
   MovingObject.prototype.draw = function (ctx) {

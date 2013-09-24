@@ -8,9 +8,9 @@
   }
 
   Asteroid.inherits(Asteroids.MovingObject);
-  
+
   Asteroid.COLOR = "white";
-  Asteroid.RADIUS = 40;
+  Asteroid.RADIUS = 30;
   Asteroid.MAXVEL = 1;
 
   Asteroid.randomAsteroid = function(dimX, dimY) {
@@ -18,8 +18,8 @@
     var y = Math.floor(Math.random() * dimY);
     var pos = [x, y];
 
-    var dx = (Math.random() * Asteroid.MAXVEL - 0.5) * 4;
-    var dy = (Math.random() * Asteroid.MAXVEL - 0.5) * 4;
+    var dx = (Math.random() - 0.5) * Asteroid.MAXVEL;
+    var dy = (Math.random() - 0.5) * Asteroid.MAXVEL;
     var vel = [dx, dy];
 
     return (new Asteroid(pos, vel));

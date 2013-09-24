@@ -10,7 +10,7 @@
 
   Game.DIM_X = 800;
   Game.DIM_Y = 400;
-  Game.FPS = 30;
+  Game.FPS = 60;
 
 
   Game.prototype.addAsteroids = function (numAsteroids) {
@@ -34,16 +34,30 @@
 
   Game.prototype.move = function () {
     this.asteroids.forEach(function (asteroid) {
-      asteroid.move(asteroid);
+      asteroid.move();
     })
-    this.ship.move(this.ship)
+    this.ship.move()
   };
 
   Game.prototype.step = function(game) {
     game.move();
     game.draw();
-    game.checkCollisions();
+    // game.checkCollisions();
   }
+
+  Game.prototype.bindKeyHandlers = function () {
+    var game = this;
+    key("up", function() {
+      game.ship.power([.5, .5]);
+    })
+    key("left", function () {
+      game.ship.rotate(-1)
+    })
+    key("right", function () {
+      game.ship.rotate(1)
+    })
+
+  };
 
   Game.prototype.checkCollisions = function () {
     var ship = this.ship;
@@ -58,6 +72,7 @@
 
   Game.prototype.start = function() {
     this.addAsteroids(10);
+    this.bindKeyHandlers();
     var game = this
     var time = Math.floor(1000 / Game.FPS);
 
