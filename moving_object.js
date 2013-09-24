@@ -4,7 +4,7 @@ Function.prototype.inherits = function (superClass) {
   this.prototype = new Surrogate();
 };
 
-(function (root) {
+;(function (root) {
   var Asteroids = root.Asteroids = (root.Asteroids || {});
 
   var MovingObject = Asteroids.MovingObject = function (pos, vel, radius, color) {
@@ -14,13 +14,14 @@ Function.prototype.inherits = function (superClass) {
     this.color = color;
   }
 
-  MovingObject.prototype.move = function () {
-    this.pos[0] += this.vel[0];
-    this.pos[1] += this.vel[1];
+  MovingObject.prototype.move = function (asteroid) {
+    asteroid.pos[0] += asteroid.vel[0];
+    asteroid.pos[1] += asteroid.vel[1];
+    console.log(asteroid.vel);
   }
 
   MovingObject.prototype.draw = function (ctx) {
-    ctx.fillStyle = "white";
+    ctx.fillStyle = this.color;
     ctx.beginPath();
 
     ctx.arc(
