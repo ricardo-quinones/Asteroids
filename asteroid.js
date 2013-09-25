@@ -21,8 +21,6 @@
     var dx = pos[0] - shipX, dy = pos[1] - shipY;
     var distance = Math.sqrt((dx * dx) + (dy * dy));
 
-    console.log(dimX);
-
     if ((30 + Asteroid.RADIUS) > distance) {
       return (Asteroid.findPos(dimX, dimY, shipX, shipY));
     }
