@@ -6,7 +6,8 @@
     this.radius = Ship.RADIUS;
     this.color = Ship.COLOR;
     this.vel = [0, 0]
-    this.angle = 1.57;
+    this.angle = 0;
+    this.rotation = 0
   };
 
   Ship.inherits(Asteroids.MovingObject)
@@ -16,12 +17,13 @@
 
   Ship.prototype.power = function (impulse) {
     var heading = this.head();
-    this.vel[0] += impulse[0] * heading[0];
-    this.vel[1] += impulse[1] * heading[1];
+    this.pos[0] += impulse[0] * heading[0];
+    this.pos[1] += impulse[1] * heading[1];
   };
 
   Ship.prototype.rotate = function (direction) {
-    this.angle += direction * Ship.ANGULARVEL
+    this.rotation = direction * Ship.ANGULARVEL
+    this.angle += this.rotation
   };
 
   Ship.prototype.head = function() {
@@ -29,36 +31,26 @@
   };
 
   Ship.prototype.draw = function (ctx) {
-    // var heading = this.head();
-    // var tip = [heading[0] * this.radius, heading[1] * this.radius];
-    // var pos = this.pos;
-    // var angle = this.angle;
-    // var dx1 = Math.cos(Math.PI * 2 /3 - angle) * this.radius;
-    // var dy1 = Math.sin(Math.PI * 2 /3 - angle) * this.radius;
-    // var dx2 = Math.cos(Math.PI * 2 /3 + angle) * this.radius;
-    // var dy2 = Math.sin(Math.PI * 2 /3 + angle) * this.radius;
+    var heading = this.head();
+    var pos = this.pos;
+    var angle = this.angle;
+    var radius = this.radius;
+    var newCos = function (num) { return Math.cos(angle + Math.PI * num / 3) }
+    var newSin = function (num) { return Math.sin(angle + Math.PI * num / 3) };
+
 
     ctx.fillStyle = this.color;
     ctx.beginPath();
 
-    ctx.arc(
-      this.pos[0],
-      this.pos[1],
-      this.radius,
-      this.angle + .28,
-      this.angle + 6,
-      false
-    );
-
-    // ctx.moveTo(pos[0] + heading[0], pos[1] + heading[1])
-    // ctx.lineTo(pos[0] + dy1, pos[1] + dx1);
-    // ctx.lineTo(pos[0] + dx2, pos[1] +  dy2);
-    // ctx.closePath();
+    ctx.moveTo(pos[0] + heading[0] * radius, pos[1] + heading[1] * radius);
+    ctx.lineTo(pos[0] + newCos(2) * radius / 2, pos[1] + newSin(2) * radius / 2);
+    ctx.lineTo(pos[0] + newCos(4) * radius / 2, pos[1] + newSin(4) * radius / 2);
+    ctx.closePath();
     ctx.strokeStyle = this.color;
     ctx.lineWidth = 5;
     ctx.stroke();
-//
-    // ctx.fill();
+
+    ctx.fill();
   };
 
 })(this)

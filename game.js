@@ -25,11 +25,11 @@
     context.fillStyle = '#000000';
     ctx.fillRect(0, 0, Game.DIM_X, Game.DIM_Y);
 
-    this.ship.draw(ctx)
-
     this.asteroids.forEach(function (asteroid) {
       asteroid.draw(ctx);
-    })
+    });
+
+    this.ship.draw(ctx)
   };
 
   Game.prototype.move = function () {
@@ -48,7 +48,7 @@
   Game.prototype.bindKeyHandlers = function () {
     var game = this;
     key("up", function() {
-      game.ship.power([.5, .5]);
+      game.ship.power([2, 2]);
     })
     key("left", function () {
       game.ship.rotate(-1)
