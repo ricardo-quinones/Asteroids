@@ -6,6 +6,7 @@
     <script src="asteroid.js"></script>
     <script src="game.js"></script>
     <script src="ship.js"></script>
+    <script src="bullet.js"></script>
   </head>
   <body>
     <script>
@@ -17,6 +18,12 @@
     body.appendChild(canvas);
 
     var context = canvas.getContext("2d");
+
+    var img = new Image();
+    img.onload = function () {
+      context.drawImage(img, 0, 0);
+    };
+    img.src = 'space.jpg';
 
     new Asteroids.Game(context).start();
     </script>

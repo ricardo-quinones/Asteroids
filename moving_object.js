@@ -46,7 +46,7 @@ Function.prototype.inherits = function (superClass) {
   MovingObject.prototype.isCollidedWith = function (otherObject) {
     var xdiff = this.pos[0] - otherObject.pos[0];
     var ydiff = this.pos[1] - otherObject.pos[1];
-    distance = Math.sqrt( (xdiff * xdiff) + (ydiff * ydiff));
+    var distance = Math.sqrt( (xdiff * xdiff) + (ydiff * ydiff));
 
     return ((this.radius + otherObject.radius) > distance);
   }

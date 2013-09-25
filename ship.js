@@ -16,9 +16,9 @@
   Ship.ANGULARVEL = .2;
 
   Ship.prototype.power = function (impulse) {
-    var heading = this.head();
-    this.pos[0] += impulse[0] * heading[0];
-    this.pos[1] += impulse[1] * heading[1];
+    var head = this.head();
+    this.pos[0] += impulse[0] * head[0];
+    this.pos[1] += impulse[1] * head[1];
   };
 
   Ship.prototype.rotate = function (direction) {
@@ -30,8 +30,14 @@
     return ([Math.cos(this.angle), Math.sin(this.angle)]);
   };
 
+  Ship.prototype.fireBullet = function(game) {
+    var pos = [this.pos[0] + this.head()[0], this.pos[1] + this.head()[1]];
+    var angle = this.angle;
+    return (new Asteroids.Bullet(pos, angle, game));
+  };
+
   Ship.prototype.draw = function (ctx) {
-    var heading = this.head();
+    var head = this.head();
     var pos = this.pos;
     var angle = this.angle;
     var radius = this.radius;
@@ -42,7 +48,7 @@
     ctx.fillStyle = this.color;
     ctx.beginPath();
 
-    ctx.moveTo(pos[0] + heading[0] * radius, pos[1] + heading[1] * radius);
+    ctx.moveTo(pos[0] + head[0] * radius, pos[1] + head[1] * radius);
     ctx.lineTo(pos[0] + newCos(2) * radius / 2, pos[1] + newSin(2) * radius / 2);
     ctx.lineTo(pos[0] + newCos(4) * radius / 2, pos[1] + newSin(4) * radius / 2);
     ctx.closePath();
@@ -53,4 +59,4 @@
     ctx.fill();
   };
 
-})(this)
+})(this);

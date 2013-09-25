@@ -13,14 +13,29 @@
   Asteroid.RADIUS = 30;
   Asteroid.MAXVEL = 1;
 
-  Asteroid.randomAsteroid = function(dimX, dimY) {
+  Asteroid.findPos = function (dimX, dimY, shipX, shipY) {
     var x = Math.floor(Math.random() * dimX);
     var y = Math.floor(Math.random() * dimY);
     var pos = [x, y];
 
-    var dx = (Math.random() - 0.5) * Asteroid.MAXVEL;
-    var dy = (Math.random() - 0.5) * Asteroid.MAXVEL;
-    var vel = [dx, dy];
+    var dx = pos[0] - shipX, dy = pos[1] - shipY;
+    var distance = Math.sqrt((dx * dx) + (dy * dy));
+
+    console.log(dimX);
+
+    if ((30 + Asteroid.RADIUS) > distance) {
+      return (Asteroid.findPos(dimX, dimY, shipX, shipY));
+    }
+
+    return pos;
+  };
+
+  Asteroid.randomAsteroid = function (dimX, dimY, shipX, shipY) {
+    var pos = Asteroid.findPos(dimX, dimY, shipX, shipY);
+    
+    var vx = (Math.random() - 0.5) * Asteroid.MAXVEL;
+    var vy = (Math.random() - 0.5) * Asteroid.MAXVEL;
+    var vel = [vx, vy];
 
     return (new Asteroid(pos, vel));
   }
